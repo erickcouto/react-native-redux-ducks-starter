@@ -1,4 +1,4 @@
-# React Native With Redux and Ducks Pattern 
+# React Native with Redux and Ducks Pattern 
 
 An example using Redux and Ducks Pattern in React Native. It an be used as a starter project using Redux in React Native.
 
@@ -6,6 +6,10 @@ An example using Redux and Ducks Pattern in React Native. It an be used as a sta
 
 * Redux
 * React Redux
+
+
+![Preview](https://i.imgur.com/k6LmQC0.gif)
+
 
 ## Usage
 
@@ -28,3 +32,7 @@ react-native run-android
 ## Contributing
 
 Please feel free to contribute, making this example better to help other new developers .
+
+
+
+
