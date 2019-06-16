@@ -1,18 +1,9 @@
 export const Types = {
-  SELECT: "recipe/SELECT"
+  SELECT: "recipe/SELECT",
+  ADD_INGREDIENT: "recipe/ADD_INGREDIENT"
 };
 
 const INITIAL_STATE = {
-  selected: {
-    id: 1,
-    title: "Yogurt Cake",
-    image: "https://images.media-allrecipes.com/userphotos/560x315/337488.jpg",
-    ingredients: [
-      "1 cup butter, room temperature",
-      "2 cups white sugar",
-      "3 eggs, room temperature"
-    ]
-  },
   items: [
     {
       id: 1,
@@ -23,7 +14,8 @@ const INITIAL_STATE = {
         "1 cup butter, room temperature",
         "2 cups white sugar",
         "3 eggs, room temperature"
-      ]
+      ],
+      selected: true
     },
     {
       id: 2,
@@ -49,17 +41,44 @@ export function select(id) {
     }
   };
 }
+export function addIngredient(id) {
+  return {
+    type: Types.ADD_INGREDIENT,
+    payload: {
+      id
+    }
+  };
+}
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.SELECT:
-      state.items.map(recipe => {
-        if (recipe.id === action.payload.id) {
-          selectedRecipe = { ...recipe, selected: recipe };
+      let selectedItem = state.items.map(recipe => {
+        if (recipe.id == action.payload.id) {
+          return {
+            ...recipe,
+            selected: true
+          };
+        } else {
+          return {
+            ...recipe,
+            selected: false
+          };
         }
       });
+      return { ...state, items: selectedItem };
 
-      return { ...state, selected: selectedRecipe };
+    case Types.ADD_INGREDIENT:
+      let updatedItems = state.items.map(recipe => {
+        if (recipe.id == action.payload.id) {
+          return {
+            ...recipe,
+            ingredients: [...recipe.ingredients, "New Ingredient"]
+          };
+        }
+        return recipe;
+      });
+      return { ...state, items: updatedItems };
 
     default:
       return state;

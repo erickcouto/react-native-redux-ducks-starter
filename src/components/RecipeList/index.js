@@ -9,7 +9,8 @@ const RecipeList = ({ recipies }) => (
     <FlatList
       horizontal
       data={recipies}
-      renderItem={({ item }) => <Recipe item={item} keyExtractor={item.id} />}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item }) => <Recipe item={item} />}
     />
   </View>
 );
