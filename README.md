@@ -2,6 +2,10 @@
 
 An example using Redux and Ducks Pattern in React Native. It an be used as a starter project using Redux in React Native.
 
+## Update
+
+Now using React Hooks with Redux.
+
 ## Libraries
 
 * Redux
