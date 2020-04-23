@@ -1,42 +1,36 @@
 import React from "react";
 
 import { View, FlatList, TouchableOpacity, Text } from "react-native";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Ingredient from "../Ingredient";
 
-import { bindActionCreators } from "redux";
 import { addIngredient } from "~/store/ducks/recipies";
 
-const IngredientList = ({ recipe, addIngredient }) => (
-  <View style={{ padding: 20 }}>
-    <FlatList
-      data={recipe.ingredients}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => <Ingredient item={item} />}
-    />
-    <TouchableOpacity
-      style={{
-        backgroundColor: "#ff0000",
-        padding: 20,
-        marginTop: 10
-      }}
-      onPress={() => addIngredient(recipe.id)}
-    >
-      <Text style={{ alignSelf: "center", color: "#ffffff" }}>Add</Text>
-    </TouchableOpacity>
-  </View>
-);
+function IngredientList() {
+  const recipe = useSelector((state) => state.recipies.items);
+  const dispatch = useDispatch();
 
-const mapStateToProps = state => {
-  return {
-    recipe: state.recipies.items.find(recipe => recipe.selected == true)
-  };
-};
+  return (
+    <View style={{ padding: 20 }}>
+      <FlatList
+        data={recipe[0].ingredients}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({ item }) => {
+          return <Ingredient item={item} />;
+        }}
+      />
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#ff0000",
+          padding: 20,
+          marginTop: 10,
+        }}
+        onPress={() => dispatch(addIngredient(recipe[0].id))}
+      >
+        <Text style={{ alignSelf: "center", color: "#ffffff" }}>Add</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ addIngredient }, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IngredientList);
+export default IngredientList;
